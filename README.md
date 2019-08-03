@@ -1,1 +1,1 @@
-# wordpress-plugins
+# WordPress IMDb Score plugin
