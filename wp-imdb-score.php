@@ -33,17 +33,11 @@ if(!class_exists('WP_IMDB_Score')){
       }
 
       private function init(){
-         $this->settings = get_option("wpimdbscore_settings");
- 
-         if(empty($this->settings['api_key'])){
-             //TODO: Here you have to display an error message to the user.
-         }
+         $this->load_settings();
       }
 
       public static function activate(){
-         if(empty(get_option("wpimdbscore_settings"))){
-             self::set_default_settings();
-         }
+         self::set_default_settings();
       }
 
       public static function deactivate(){
@@ -51,13 +45,21 @@ if(!class_exists('WP_IMDB_Score')){
       }
 
       public static function uninstall(){
-         return delete_option("wpimdbscore_settings");
+         return self::delete_settings();
       }
 
-      public static function set_default_settings(){
-         update_option("wpimdbscore_settings", array(
+      private static function set_default_settings(){
+         foreach(self::get_default_settings() as $setting => $value){
+             if(empty(get_option($setting))){
+                update_option('wpimdbscore_'.$setting, $value);
+             }
+         }
+      }
+
+      public static function get_default_settings(){
+        return array( // Default settings. Will be applied when plugin activated for first time.
             'api_key' => "1066b476",
-            'imdb_icon_url' => plugin_dir_url(__FILE__) . "/img/imdb-icon.png",
+            'imdb_icon_url' =>  plugin_dir_url(__FILE__) ."img/imdb-icon.png",
             'display_imdb_icon' => true,
             'icon_width' => "30px",
             'icon_height' => "20px",
@@ -65,26 +67,34 @@ if(!class_exists('WP_IMDB_Score')){
             'link_opens_in_new_tab' => true,
             'cache_results' => true,
             'cache_lasts' => "1d"
-         ));
+          );
       }
 
-      public static function update_settings(array $new_settings){
-          if(empty(get_option("wpimdbscore_settings"))){
-             self::set_default_settings();
-          }
-          
-          // Updates the existing settings. If a setting doesn't exist - it creates a new one;
-          $current_settigns = get_option("wpimdbscore_settings");
-          foreach($new_settings as $name => $value){
-             $current_settings[$name] = $value;
-          }
+      private static function delete_settings(){
+         $return = false;
+         foreach(array_keys(self::get_default_settings()) as $key){
+            $return = delete_option('wpimdbscore_'.$key);
+         }
 
-          // Save updated settings
-          return update_option("wpimdbscore_settings", $current_settings);
+         return $return;
+      }
+
+      private function load_settings(){
+         foreach(self::get_default_settings() as $key => $value){
+             $new_setting = get_option('wpimdbscore_'.$key);
+             $this->settings[$key] = $new_setting;
+         }
       }
 
       public function get_score_html($imdb_id){
           $outp = "";
+
+          if(empty($this->settings['api_key'])){
+             if(current_user_can('manage_options')){
+               $outp .= "<b>WP_IMDB_Score:</b> No API Key! Please enter a valid OMDb API Key in plugin's settings page."; 
+             }
+             return $outp;
+          }
 
           $score = $this->get_cached_score($imdb_id);
           $imdb_icon = $this->settings["display_imdb_icon"]?("<img src='" . $this->settings["imdb_icon_url"] . "' style='width:".$this->settings["icon_width"]."; height:".$this->settings["icon_height"].";'/>&nbsp;"):"";
@@ -118,7 +128,7 @@ if(!class_exists('WP_IMDB_Score')){
          $cached_score = unserialize(file_get_contents($cache_fn));
  
          $score = null;
-         if(empty($cached_score) || self::is_outdated($cached_score['expires'])){
+         if(empty($cached_score) || self::is_outdated($cached_score['expires']) || !$this->cache_enabled()){
             $score = $this->get_score($imdb_id);
 
             if($this->cache_enabled()){
@@ -219,10 +229,12 @@ if(!class_exists('WP_IMDB_Score')){
 // <-- END OF CLASS
 
 
+
 /** Shortcodes **/
 // [imdb_score]
 function wp_imdb_score_shortcode($atts){
   $wpimdbscore = new WP_IMDB_Score();
+
   return $wpimdbscore->get_score_html($atts["id"]);
 }
 add_shortcode("imdb_score", "wp_imdb_score_shortcode");
@@ -243,8 +255,11 @@ add_action("display_imdb_score", "wpimdbscore_display_imdb_score");
 // Display IMDb score
 function wpimdbscore_display_imdb_score($imdb_id){
     $wpimdbscore = new WP_IMDB_Score();
+
     echo $wpimdbscore->get_score_html($imdb_id);
 }
 
+/** Includes **/
+include(plugin_dir_path(__FILE__) . 'classes' . DIRECTORY_SEPARATOR . 'wp-imdb-admin.class.php');
 
 ?>
