@@ -6,14 +6,17 @@
  */
 /*
 Plugin Name: WordPress IMDB Score
-Plugin URI: http://wordpress.org/plugins/hello-dolly/
+Plugin URI: https://github.com/dkirilov/wp-imdb-score
+Text Domain: wp-imdb-score
 Description: This plugin helps wordpress users to display the IMDB ratings score for a movie. It's lightweight, simple and easy to use.  
 Author: Dian Kirilov
 Version: 1.0.0
 Author URI: http://diankirilov.wordpress.com/
 */
 
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+
+/** Check whether the current file is accessed directly **/
+function_exists("do_action") or die('Wrong place dude!');
 
 
 /** Useful constants **/
@@ -48,9 +51,9 @@ function wpimdbscore_display_imdb_score($imdb_id){
 
 /** Shortcodes **/
 // [imdb_score]
-function wp_imdb_score_shortcode($atts){
+function wpimdbscore_shortcode($atts){
    do_action('display_imdb_score', $atts['id']);
 }
-add_shortcode("imdb_score", "wp_imdb_score_shortcode");
+add_shortcode("imdb_score", "wpimdbscore_shortcode");
 
 ?>

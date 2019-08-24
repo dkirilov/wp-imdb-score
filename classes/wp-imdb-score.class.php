@@ -25,6 +25,7 @@ if(!class_exists('WP_IMDB_Score')){
 
       public static function activate(){
          self::set_default_settings();
+         self::refresh_translations();
       }
 
       public static function deactivate(){
@@ -46,7 +47,7 @@ if(!class_exists('WP_IMDB_Score')){
       public static function get_default_settings(){
         return array( // Default settings. Will be applied when plugin activated for first time.
             'api_key' => "1066b476",
-            'imdb_icon_url' =>  plugin_dir_url(__FILE__) ."img/imdb-icon.png",
+            'imdb_icon_url' =>  plugin_dir_url(PLUGIN_DIR.'wp-imdb-score.php') ."img/imdb-icon.png",
             'display_imdb_icon' => true,
             'icon_width' => "30px",
             'icon_height' => "20px",
@@ -73,12 +74,27 @@ if(!class_exists('WP_IMDB_Score')){
          }
       }
 
+      private static function refresh_translations(){
+         $plugin_lang_dir = PLUGIN_DIR . 'languages' . DIRECTORY_SEPARATOR;
+         $system_lang_dir = WP_LANG_DIR . DIRECTORY_SEPARATOR . 'plugins' . DIRECTORY_SEPARATOR;
+
+         // Copies language files to system's language dir
+         $plugin_lang_dir_files = scandir($plugin_lang_dir);
+         foreach($plugin_lang_dir_files as $current_file_name){
+            $cfn_ext = pathinfo($current_file_name, PATHINFO_EXTENSION);
+
+            if($cfn_ext == "po" || $cfn_ext == "mo"){
+                copy($plugin_lang_dir.$current_file_name, $system_lang_dir.$current_file_name);
+            } 
+         }       
+      }
+
       public function get_score_html($imdb_id){
           $outp = "";
 
-          if(empty($this->settings['api_key'])){
+          if(!WP_IMDB_Score_Validator::is_api_key($this->settings['api_key'])){
              if(current_user_can('manage_options')){
-               $outp .= "<b>WP_IMDB_Score:</b> No API Key! Please enter a valid OMDb API Key in plugin's settings page."; 
+               $outp .= __("<b>WP_IMDB_Score:</b> No API Key! Please enter a valid OMDb API Key in plugin's settings page.", 'wp-imdb-score'); 
              }
              return $outp;
           }
@@ -105,7 +121,7 @@ if(!class_exists('WP_IMDB_Score')){
          $cache_fn = self::CACHE_DIR . $imdb_id . ".cache";
 
          if( file_put_contents($cache_fn, serialize($cache_contents)) === FALSE ){
-             throw new \Exception("Caching the score for <b>$imdb_id</b> has failed.");
+             throw new \Exception(sprintf(__("Caching the score for <b>%s</b> has failed.", 'wp-imdb-score'), $imdb_id));
          }
       } 
 
@@ -147,7 +163,7 @@ if(!class_exists('WP_IMDB_Score')){
 
       private function set_id($imdb_id){
          if(empty($imdb_id)){
-            throw new \Exception("Invalid IMDb movie id.");
+            throw new \Exception(__("Invalid IMDb movie id.", 'wp-imdb-score'));
          }
 
          $this->req_params['i'] = $imdb_id;
@@ -176,7 +192,7 @@ if(!class_exists('WP_IMDB_Score')){
          }
  
          if(empty($data)){
-             throw new \Exception("Http_get failed.");
+             throw new \Exception(__("Http_get failed.", 'wp-imdb-score'));
          }
 
          return $data;

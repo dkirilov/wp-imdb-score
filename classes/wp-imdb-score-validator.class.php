@@ -1,6 +1,6 @@
 <?php
 
-defined( 'ABSPATH' ) or die( 'No script kiddies please!' );
+function_exists("do_action") or die('Wrong place dude!');
 
 
 if(!class_exists('WP_IMDB_Score_Validator')){

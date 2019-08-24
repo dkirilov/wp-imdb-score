@@ -1,0 +1,198 @@
+# Copyright (C) 2019 Dian Kirilov
+# This file is distributed under the same license as the WordPress IMDB Score plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress IMDB Score 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-imdb-score\n"
+"POT-Creation-Date: 2019-08-24 20:35+0000\n"
+"PO-Revision-Date: 2019-08-24 20:42+0000\n"
+"Last-Translator: Dian Kirilov <dian.kirilov@gmail.com>\n"
+"Language-Team: Български\n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_n\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Loco-Version: 2.3.0; wp-5.2.2"
+
+#: classes/wp-imdb-score.class.php:81
+msgid ""
+"<b>WP_IMDB_Score:</b> No API Key! Please enter a valid OMDb API Key in "
+"plugin's settings page."
+msgstr ""
+"<b>WP_IMDB_Score:</b> Не сте задали ключ за OMDb API или ключът, който сте "
+"въвели е невалиден!  Моля въведете валиден ключ."
+
+#: classes/wp-imdb-score.class.php:108
+#, php-format
+msgid "Caching the score for <b>%s</b> has failed."
+msgstr "Кеширането на оценката за <b>%s</b> се провали."
+
+#: classes/wp-imdb-score.class.php:150
+msgid "Invalid IMDb movie id."
+msgstr "Невалиден идентификатор на IMDb филм."
+
+#: classes/wp-imdb-score.class.php:179
+msgid "Http_get failed."
+msgstr "Изтеглянето на оценката се провали."
+
+#: classes/wp-imdb-admin.class.php:27
+msgid "WordPress IMDb Score"
+msgstr "Страница с настройки на WordPress IMDb Score Plugin"
+
+#: classes/wp-imdb-admin.class.php:38
+msgid "WordPress IMDb Score Plugin Settings Page"
+msgstr "Страница с настройки на WordPress IMDb Score Plugin"
+
+#: classes/wp-imdb-admin.class.php:39
+msgid "Here you can change some settings according to your needs."
+msgstr ""
+"От тази страница имате възможност да променяте някои настройки, така че "
+"изобразеният резултат да отговаря на вашите нужди и предпочитания."
+
+#: classes/wp-imdb-admin.class.php:87
+msgid "OMDb API Settings"
+msgstr "Настройки на OMDb API"
+
+#: classes/wp-imdb-admin.class.php:90
+msgid "IMDb Icon Settings"
+msgstr "Настройки на IMDb иконката"
+
+#: classes/wp-imdb-admin.class.php:93
+msgid "Link Settings"
+msgstr "Настройки на линка"
+
+#: classes/wp-imdb-admin.class.php:96
+msgid "Cache Settings"
+msgstr "Настройки на кеширането"
+
+#: classes/wp-imdb-admin.class.php:103
+#, php-format
+msgid ""
+"You can get OMDb API Key by visiting <a href=\"%s\" target=\"%s\">this "
+"page</a>."
+msgstr ""
+"Ако нямате ключ за OMDb API, може да посетите <a href=\"%s\" target=\"%s\">"
+"тази страница</a>, за да генерирате такъв."
+
+#: classes/wp-imdb-admin.class.php:107
+msgid ""
+"Please note that <strong>icon URL should finish in one of the following "
+"extentions: <ins>*.png</ins>, <ins>*.jpg</ins>, <ins>*.jpeg</ins>, <ins>*."
+"gif</ins></strong>! Everything else will be rejected and marked as error. In "
+"addition <strong>icon sizes have to be in pixels</strong>!"
+msgstr ""
+"Моля имайте предвид, че <strong>линкът към иконката трябва да завършва на "
+"едно от следните окончания: <ins>*.png</ins>, <ins>*.jpg</ins>, <ins>*."
+"jpeg</ins>, <ins>*.gif</ins></strong>! Всички останали линкове ще бъдат "
+"третирани като невалидни. Освен това <strong>размерите на иконките трябва да "
+"бъдат в пиксели(px)</strong>!"
+
+#: classes/wp-imdb-admin.class.php:115
+msgid ""
+"'Cache lasts' field does accept values in the following format: {number}{[d,"
+"D,h,H,m,M,s,S]}."
+msgstr ""
+"Полето 'Кешът се обновява през'  приема стойности в следният формат:  {номер}"
+"{[d,D,h,H,m,M,s,S]}."
+
+#: classes/wp-imdb-admin.class.php:120
+msgid "API Key"
+msgstr "Ключ за API"
+
+#: classes/wp-imdb-admin.class.php:121
+msgid "IMDb Icon URL"
+msgstr "Линк към IMDb иконка"
+
+#: classes/wp-imdb-admin.class.php:122
+msgid "Display IMDb Icon"
+msgstr "Показвай IMDb иконката"
+
+#: classes/wp-imdb-admin.class.php:123
+msgid "Icon width"
+msgstr "Широчина на иконката"
+
+#: classes/wp-imdb-admin.class.php:124
+msgid "Icon height"
+msgstr "Височина на иконката"
+
+#: classes/wp-imdb-admin.class.php:125
+msgid "Display as link"
+msgstr "Показвай оценката като линк"
+
+#: classes/wp-imdb-admin.class.php:126
+msgid "Link opens in new tab"
+msgstr "Да се отваря ли линкът в нов таб"
+
+#: classes/wp-imdb-admin.class.php:127
+msgid "Cache results"
+msgstr "Кеширай оценките"
+
+#: classes/wp-imdb-admin.class.php:128
+msgid "Cache lasts"
+msgstr "Кешът да се обновява през"
+
+#: classes/wp-imdb-admin.class.php:144 classes/wp-imdb-admin.class.php:159
+#: classes/wp-imdb-admin.class.php:166 classes/wp-imdb-admin.class.php:173
+msgid "Yes"
+msgstr "Да"
+
+#: classes/wp-imdb-admin.class.php:160 classes/wp-imdb-admin.class.php:167
+#: classes/wp-imdb-admin.class.php:174
+msgid "No"
+msgstr "Не"
+
+#: classes/wp-imdb-admin.class.php:189
+#, php-format
+msgid ""
+"Invalid API Key! Visit <a href=\"%1$s\" target=\"%2$s\">OMDb API's "
+"website</a> to get a valid API Key."
+msgstr ""
+"Невалиден ключ за OMDb API! Моля посетете <a href=\"%1$s\" target=\"%2$s\">"
+"тази страница</a>, за да генерирате валиден ключ за API."
+
+#: classes/wp-imdb-admin.class.php:201
+msgid "Invalid <ins>IMDb Icon URL</ins>!"
+msgstr "Линкът към IMDb иконката е невалиден!"
+
+#: classes/wp-imdb-admin.class.php:215
+msgid "Invalid <ins>Icon Width</ins>!"
+msgstr "Широчината на иконката е невалидна!"
+
+#: classes/wp-imdb-admin.class.php:225
+msgid "Invalid <ins>Icon Height</ins>!"
+msgstr "Височината на иконката е невалидна!"
+
+#: classes/wp-imdb-admin.class.php:247
+msgid "Invalid value for <ins>Cache lasts</ins>!"
+msgstr ""
+"Невалидна дълготрайност на кеша! Моля коригирайте полето \"Кешът да се "
+"обновява през\"!"
+
+#. Name of the plugin
+msgid "WordPress IMDB Score"
+msgstr "WordPress IMDB Score"
+
+#. Description of the plugin
+msgid ""
+"This plugin helps wordpress users to display the IMDB ratings score for a "
+"movie. It's lightweight, simple and easy to use."
+msgstr ""
+"С този УърдПрес плъгин можете лесно да изобразявате оценки на филми от IMDb "
+"навсякъде във вашите теми, плъгини, страници и публикации."
+
+#. URI of the plugin
+msgid "http://wordpress.org/plugins/hello-dolly/"
+msgstr "http://wordpress.org/plugins/hello-dolly/"
+
+#. Author of the plugin
+msgid "Dian Kirilov"
+msgstr "Диан Кирилов"
+
+#. Author URI of the plugin
+msgid "http://diankirilov.wordpress.com/"
+msgstr "http://diankirilov.wordpress.com/"
