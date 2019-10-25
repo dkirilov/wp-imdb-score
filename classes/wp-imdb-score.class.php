@@ -90,6 +90,10 @@ if(!class_exists('WP_IMDB_Score')){
       }
 
       public function get_score_html($imdb_id){
+          if(empty($imdb_id)){
+             return "<span class='wp_imdb_score'>--/10</span>";
+          }
+
           $outp = "";
 
           if(!WP_IMDB_Score_Validator::is_api_key($this->settings['api_key'])){
@@ -114,6 +118,10 @@ if(!class_exists('WP_IMDB_Score')){
       }
 
       private function cache_score($imdb_id, $score){
+         if(empty($imdb_id)){
+             return false;
+         }
+
          $cache_contents = array(
             "score" => $score,
             "expires" => (time() + self::str_to_timestamp($this->settings['cache_lasts']))
@@ -126,6 +134,10 @@ if(!class_exists('WP_IMDB_Score')){
       } 
 
       public function get_cached_score($imdb_id){
+         if(empty($imdb_id)){
+             return false;
+         }
+
          $cache_fn = self::CACHE_DIR . $imdb_id . ".cache";
 
          $cached_score = unserialize(file_get_contents($cache_fn));
@@ -153,6 +165,10 @@ if(!class_exists('WP_IMDB_Score')){
       }
 
       public function get_score($imdb_id){
+         if(empty($imdb_id)){
+             return false;
+         }
+
          $this->set_id($imdb_id);
 
          $movie_info  = $this->exec_request();
